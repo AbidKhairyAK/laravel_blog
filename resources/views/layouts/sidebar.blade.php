@@ -37,7 +37,7 @@
 					  <a href="#" class="list-group-item">
 					  	<div class="media">
 					  	  <div class="media-left media-middle">
-					  	    <img src="/AbidBlog/img/carl3.jpg" class="media-object">
+					  	    <img src="/AbidBlog/img/Post_Image_3.jpg" class="media-object">
 					  	  </div>
 					  	  <div class="media-body">
 					  	    <h4 class="media-heading">Blog Post #3</h4>
@@ -49,7 +49,7 @@
 					  <a href="#" class="list-group-item">
 					  	<div class="media">
 					  	  <div class="media-left media-middle">
-					  	    <img src="/AbidBlog/img/carl2.jpg" class="media-object">
+					  	    <img src="/AbidBlog/img/Post_Image_2.jpg" class="media-object">
 					  	  </div>
 					  	  <div class="media-body">
 					  	    <h4 class="media-heading">Blog Post #4</h4>
@@ -61,7 +61,7 @@
 					  <a href="#" class="list-group-item">
 					  	<div class="media">
 					  	  <div class="media-left media-middle">
-					  	    <img src="/AbidBlog/img/carl3.jpg" class="media-object">
+					  	    <img src="/AbidBlog/img/Post_Image_3.jpg" class="media-object">
 					  	  </div>
 					  	  <div class="media-body">
 					  	    <h4 class="media-heading">Blog Post #5</h4>
@@ -73,7 +73,7 @@
 					  <a href="#" class="list-group-item">
 					  	<div class="media">
 					  	  <div class="media-left media-middle">
-					  	    <img src="/AbidBlog/img/carl2.jpg" class="media-object">
+					  	    <img src="/AbidBlog/img/Post_Image_2.jpg" class="media-object">
 					  	  </div>
 					  	  <div class="media-body">
 					  	    <h4 class="media-heading">Blog Post #6</h4>

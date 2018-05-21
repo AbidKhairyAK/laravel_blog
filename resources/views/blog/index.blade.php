@@ -10,7 +10,7 @@
 
 	      <div class="thumbnail">
 	        <a href="#" target="_blank">
-	          <img src="/AbidBlog/img/carl2.jpg" alt="Lights" class="img-responsive">
+	          <img src="/AbidBlog/img/Post_Image_2.jpg" alt="Lights" class="img-responsive">
 	          <div class="caption">
 	          	<h2>Lorem ipsum donec id elit non donec id elit non mi porta</h2>
 	            <p class="text-justify">Lorem ipsum donec id elit non mi porta gravida at eget metus. Lorem ipsum donec id elit non mi porta gravida at eget metus. Lorem ipsum donec id elit non mi porta gravida at eget metus. Lorem ipsum donec porta.</p>
@@ -29,7 +29,7 @@
 
 	      <div class="thumbnail">
 	        <a href="#" target="_blank">
-	          <img src="/AbidBlog/img/carl3.jpg" alt="Lights" class="img-responsive">
+	          <img src="/AbidBlog/img/Post_Image_3.jpg" alt="Lights" class="img-responsive">
 	          <div class="caption">
 	          	<h2>Lorem ipsum donec id elit non donec id elit non mi porta</h2>
 	            <p class="text-justify">Lorem ipsum donec id elit non mi porta gravida at eget metus. Lorem ipsum donec id elit non mi porta gravida at eget metus. Lorem ipsum donec id elit non mi porta gravida at eget metus. Lorem ipsum donec porta.</p>

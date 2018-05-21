@@ -9,7 +9,7 @@
 		<div id="content" class="col-md-8">
 
       <div class="thumbnail">
-        <img src="/AbidBlog/img/carl2.jpg" alt="Lights" class="img-responsive">
+        <img src="/AbidBlog/img/Post_Image_2.jpg" alt="Lights" class="img-responsive">
         <div class="caption">
         	<h2>Lorem ipsum donec id elit non donec id elit non mi porta</h2>
         	<ul class="list-inline">
@@ -44,7 +44,7 @@
       		<div class="media">
       		  <div class="media-left media-top">
       		  	<span>
-      		    	<img src="/AbidBlog/img/carl2.jpg" class="media-object">
+      		    	<img src="/AbidBlog/img/Post_Image_2.jpg" class="media-object">
       		  	</span>
       		  </div>
       		  <div class="media-body">
