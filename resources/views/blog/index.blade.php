@@ -24,8 +24,8 @@
 	        </a>
 	        <div class="panel panel-default">
 	          <ul class="panel-body list-inline">
-	          	<li><i class="fa fa-user"></i> <span class="text-muted">Admin</span></li>
-	          	<li><i class="fa fa-clock-o"></i> February, 12 2016</li>
+	          	<li><i class="fa fa-user"></i> <span class="text-muted">{{ $post->author->name }}</span></li>
+	          	<li><i class="fa fa-clock-o"></i> {{ $post->date }}</li>
 	          	<li><i class="fa fa-tags"></i> <span class="text-muted">Blog</span></li>
 	          	<li><i class="fa fa-comments"></i> <span class="text-muted">4 Comments</span></li>
 	          	<li class="pull-right text-muted"><a href="#" target="_blank">Continue Reading &raquo;</a></li>
@@ -37,8 +37,9 @@
 
 		  <!-- Pager -->
 		  <ul class="pager">
-		    <li class="previous"><a href="#">&larr; Newer</a></li>
-		    <li class="next"><a href="#">Older &rarr;</a></li>
+		    <!-- <li class="previous"><a href="#">&larr; Newer</a></li>
+		    <li class="next"><a href="#">Older &rarr;</a></li> -->
+		    {{ $posts->links() }}
 		  </ul>
 
 		</div><!-- Content Closer -->

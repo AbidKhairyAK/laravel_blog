@@ -76,10 +76,23 @@ a, p, h4, li, button, .caption, .label, .media-body {
 	margin: 0;
 	margin-bottom: 30px;
 }
-.pager a:hover {
+.pager ul a:hover {
 	background: none !important;
 	opacity: 0.6;
 	color: #333;
+}
+.pager .pagination {
+	display: block;	
+	margin: 0;
+}
+.pager ul a {
+	color: inherit;
+}
+.pager ul li:first-child {
+	float: left !important;
+}
+.pager ul li:last-child {
+	float: right !important;
 }
 .search {
 	margin-bottom: 40px;

@@ -9,7 +9,11 @@ class BlogController extends Controller
 {
     public function index()
     {
-    	$posts = Post::all();
+    	protected $limit = 3;
+
+    	// $posts = Post::with('author')->orderBy('created_at','desc')->get();
+    	// $posts = Post::with('author')->latest()->get();
+    	$posts = Post::with('author')->latestFirst()->simplePaginate($this->limit);
     	return view('blog.index', compact('posts'));
     }
 }
