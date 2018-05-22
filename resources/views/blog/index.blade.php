@@ -19,7 +19,7 @@
 	          
 	          <div class="caption">
 	          	<h2>{{ $post->title }}</h2>
-	            <p class="text-justify">{{ $post->excerpt }}</p>
+	            <div class="text-justify">{!! $post->excerptHtml !!}</div>
 	          </div>
 	        </a>
 	        <div class="panel panel-default">

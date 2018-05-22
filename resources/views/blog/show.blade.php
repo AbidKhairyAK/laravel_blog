@@ -13,7 +13,7 @@
         @if ($post->imageUrl)
           <img src="{{ $post->imageUrl }}" alt="{{ $post->title }}" class="img-responsive">
         @endif
-        
+
         <div class="caption">
         	<h2>{{ $post->title }}</h2>
         	<ul class="list-inline">
@@ -23,7 +23,7 @@
         		<li><i class="fa fa-comments"></i> <span class="text-muted">4 Comments</span></li>
         	</ul>
           <div class="text-justify"> 
-            <p> {{ $post->body }} </p> 
+            {!! $post->bodyHtml !!}
           </div>
         </div>
       </div>
