@@ -11,7 +11,7 @@
 			@foreach($posts as $post)
 			
 	      <div class="thumbnail">
-	        <a href="{{ route('blog.show', $post->id) }}" target="_blank">
+	        <a href="{{ route('blog.show', $post->slug) }}" target="_blank">
 
 	        	@if ($post->imageUrl)
 	          	<img src="{{ $post->image_url }}" alt="Post Image" class="img-responsive">
@@ -28,7 +28,7 @@
 	          	<li><i class="fa fa-clock-o"></i> {{ $post->date }}</li>
 	          	<li><i class="fa fa-tags"></i> <span class="text-muted">Blog</span></li>
 	          	<li><i class="fa fa-comments"></i> <span class="text-muted">4 Comments</span></li>
-	          	<li class="pull-right text-muted"><a href="{{ route('blog.show', $post->id) }}" target="_blank">Continue Reading &raquo;</a></li>
+	          	<li class="pull-right text-muted"><a href="{{ route('blog.show', $post->slug) }}" target="_blank">Continue Reading &raquo;</a></li>
 	          </ul>
 	        </div>
 	      </div>
