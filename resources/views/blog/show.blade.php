@@ -19,7 +19,7 @@
         	<ul class="list-inline">
         		<li><i class="fa fa-user"></i> <span class="text-muted"> {{ $post->author->name }}</span></li>
         		<li><i class="fa fa-clock-o"></i> {{ $post->date }}</li>
-        		<li><i class="fa fa-tags"></i> <span class="text-muted">Blog</span></li>
+            <li><i class="fa fa-tags"></i> <span class="text-muted"><a href="{{ route('category',$post->category->slug) }}">{{ $post->category->title }}</a></span></li>
         		<li><i class="fa fa-comments"></i> <span class="text-muted">4 Comments</span></li>
         	</ul>
           <div class="text-justify"> 

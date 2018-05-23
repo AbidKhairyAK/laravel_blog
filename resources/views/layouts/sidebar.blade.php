@@ -21,7 +21,7 @@
 					<div class="list-group">
 
 						@foreach($categories as $category)
-					  	<a href="{{ route('category', $category->id) }}" class="list-group-item">&rsaquo; {{ $category->title }} <span class="badge">{{ $category->posts->count() }}</span></a>
+					  	<a href="{{ route('category', $category->slug) }}" class="list-group-item">&rsaquo; {{ $category->title }} <span class="badge">{{ $category->posts->count() }}</span></a>
 						@endforeach
 
 					</div>
