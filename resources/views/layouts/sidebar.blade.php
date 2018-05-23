@@ -19,11 +19,11 @@
 				<div class="panel-heading">CATEGORY</div>
 				<div class="panel-body">
 					<div class="list-group">
-					  <a href="#" class="list-group-item">&rsaquo; Web Development <span class="badge">12</span></a>
-					  <a href="#" class="list-group-item">&rsaquo; Web Design <span class="badge">12</span></a>
-					  <a href="#" class="list-group-item">&rsaquo; General <span class="badge">12</span></a>
-					  <a href="#" class="list-group-item">&rsaquo; DIY <span class="badge">12</span></a>
-					  <a href="#" class="list-group-item">&rsaquo; Facebook Development <span class="badge">12</span></a>
+
+						@foreach($categories as $category)
+					  	<a href="{{ route('category', $category->id) }}" class="list-group-item">&rsaquo; {{ $category->title }} <span class="badge">{{ $category->posts->count() }}</span></a>
+						@endforeach
+
 					</div>
 				</div>
 			</div>
