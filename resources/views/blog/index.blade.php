@@ -20,9 +20,15 @@
 					</div>
 				@endif
 
+				@if(isset($authorName))
+					<div class="alert alert-info">
+						<p>Author: <strong>{{ $authorName }}</strong></p>
+					</div>
+				@endif
+
 				@foreach($posts as $post)
 		      <div class="thumbnail">
-		        <a href="{{ route('blog.show', $post->slug) }}" target="_blank">
+		        <a href="{{ route('blog.show', $post->slug) }}">
 
 		        	@if ($post->imageUrl)
 		          	<img src="{{ $post->image_url }}" alt="Post Image" class="img-responsive">
@@ -35,7 +41,7 @@
 		        </a>
 		        <div class="panel panel-default">
 		          <ul class="panel-body list-inline">
-		          	<li><i class="fa fa-user"></i> <span class="text-muted">{{ $post->author->name }}</span></li>
+		          	<li><i class="fa fa-user"></i> <span class="text-muted"><a href="{{ route('author',$post->author->slug) }}"> {{ $post->author->name }}</a></span></li>
 		          	<li><i class="fa fa-clock-o"></i> {{ $post->date }}</li>
 		          	<li><i class="fa fa-tags"></i> <span class="text-muted"><a href="{{ route('category',$post->category->slug) }}">{{ $post->category->title }}</a></span></li>
 		          	<li><i class="fa fa-comments"></i> <span class="text-muted">4 Comments</span></li>
