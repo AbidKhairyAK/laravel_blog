@@ -169,8 +169,8 @@ a, p, h4, li, button, .caption, .label, .media-body {
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%,-50%);
-	max-width: 200%;
-	width: 200%;
+	max-width: 100%;
+	width: 100%;
 }
 #author .media-heading{
 	font-weight: 700;
