@@ -34,54 +34,23 @@
 				<div class="panel-body">
 					<div class="list-group">
 
-					  <a href="#" class="list-group-item">
-					  	<div class="media">
-					  	  <div class="media-left media-middle">
-					  	    <img src="/AbidBlog/img/Post_Image_3.jpg" class="media-object">
-					  	  </div>
-					  	  <div class="media-body">
-					  	    <h4 class="media-heading">Blog Post #3</h4>
-					  	    <p class="text-muted">36 minutes ago</p>
-					  	  </div>
-					  	</div>
-					  </a>
+						@foreach($popularPosts as $post)
+						  <a href="{{ $post->slug }}" class="list-group-item">
+						  	<div class="media">
 
-					  <a href="#" class="list-group-item">
-					  	<div class="media">
-					  	  <div class="media-left media-middle">
-					  	    <img src="/AbidBlog/img/Post_Image_2.jpg" class="media-object">
-					  	  </div>
-					  	  <div class="media-body">
-					  	    <h4 class="media-heading">Blog Post #4</h4>
-					  	    <p class="text-muted">36 minutes ago</p>
-					  	  </div>
-					  	</div>
-					  </a>
-
-					  <a href="#" class="list-group-item">
-					  	<div class="media">
-					  	  <div class="media-left media-middle">
-					  	    <img src="/AbidBlog/img/Post_Image_3.jpg" class="media-object">
-					  	  </div>
-					  	  <div class="media-body">
-					  	    <h4 class="media-heading">Blog Post #5</h4>
-					  	    <p class="text-muted">36 minutes ago</p>
-					  	  </div>
-					  	</div>
-					  </a>
-
-					  <a href="#" class="list-group-item">
-					  	<div class="media">
-					  	  <div class="media-left media-middle">
-					  	    <img src="/AbidBlog/img/Post_Image_2.jpg" class="media-object">
-					  	  </div>
-					  	  <div class="media-body">
-					  	    <h4 class="media-heading">Blog Post #6</h4>
-					  	    <p class="text-muted">36 minutes ago</p>
-					  	  </div>
-					  	</div>
-					  </a>
-
+						  		@if ($post->image_thumb_url)
+							  	  <div class="media-left media-top">
+							  	    <img src="{{ $post->image_thumb_url }}" class="media-object">
+							  	  </div>
+						  	  @endif
+						  	  
+						  	  <div class="media-body">
+						  	    <h4 class="media-heading">{{ $post->title }}</h4>
+						  	    <p class="text-muted">{{ $post->date }}</p>
+						  	  </div>
+						  	</div>
+						  </a>
+						@endforeach
 					</div>
 				</div>
 			</div><!-- Popular Post Closer -->
