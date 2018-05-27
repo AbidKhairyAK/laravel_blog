@@ -25,6 +25,9 @@ input:focus, button:focus, textarea:focus {
 a, p, h4, li, button, .caption, .label, .media-body {
 	transition: all 0.2s ease;
 }
+.wrapper {
+	min-height: calc(100vh - 155px);
+}
 .navbar {
 	font-weight: 700;
 }
@@ -223,6 +226,7 @@ a, p, h4, li, button, .caption, .label, .media-body {
 	margin-bottom: 0;
 	border: 0;
 	border-top: 1px solid #dfdfdf;
+	position: relative;
 }
 #footer .panel-body {
 	padding-right: 0;

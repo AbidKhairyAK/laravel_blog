@@ -15,23 +15,26 @@
 </head>
 <body>
 
-	<!-- Navbar -->
-	<nav class="navbar navbar-default navbar-fixed-top">
-	  <div class="container">
-	  	<div class="col-md-12">
-		    <div class="navbar-header">
-		      <a class="navbar-brand" href="{{ route('blog') }}">ABIDBLOG.COM</a>
-		    </div>
-		    <ul class="nav navbar-nav navbar-right">
-		      <li class="active"><a href="{{ route('blog') }}">Blog</a></li>
-		      <li><a href="#">About</a></li>
-		      <li><a href="#">Contact</a></li>
-		    </ul>
-	  	</div>
-	  </div>
-	</nav>
+	<div class="wrapper">
+		<!-- Navbar -->
+		<nav class="navbar navbar-default navbar-fixed-top">
+		  <div class="container">
+		  	<div class="col-md-12">
+			    <div class="navbar-header">
+			      <a class="navbar-brand" href="{{ route('blog') }}">ABIDBLOG.COM</a>
+			    </div>
+			    <ul class="nav navbar-nav navbar-right">
+			      <li class="active"><a href="{{ route('blog') }}">Blog</a></li>
+			      <li><a href="#">About</a></li>
+			      <li><a href="#">Contact</a></li>
+			    </ul>
+		  	</div>
+		  </div>
+		</nav>
 
-	@yield('content')
+		@yield('content')
+
+	</div><!-- Wrapper Closer -->
 
 	<!-- Footer -->
 	<div id="footer" class="panel panel-default">
