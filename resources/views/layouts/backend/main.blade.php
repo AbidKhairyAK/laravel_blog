@@ -71,5 +71,8 @@
     $('.sidebar-menu').tree()
   })
 </script>
+
+@yield('script')
+
 </body>
 </html>
