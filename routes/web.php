@@ -18,7 +18,7 @@ Route::get('/', [
 
 Route::get('/blog/{post}', [
 	'uses' 	=> 'BlogController@show',
-	'as' 		=> 'blog.show'
+	'as' 		=> 'blog.post'
 ]);
 
 Route::get('/category/{category}', [
@@ -31,3 +31,11 @@ Route::get('/author/{author}', [
 	'as' 		=> 'author'
 ]);
 
+
+Auth::routes();
+
+Route::get('/home', 'Backend\HomeController@index')->name('home');
+
+Route::post('/signout', 'Auth\LoginController@userLogout')->name('signout');
+
+Route::resource('/backend/blog', 'Backend\BlogController');

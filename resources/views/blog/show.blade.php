@@ -1,32 +1,27 @@
 @extends('layouts.main')
 
 @section('content')
-
-  <?php $author = $post->author; ?>
-  
 	<!-- Main -->
-	<div id="home" class="container">
+	<div id="post" class="container">
 
 		<!-- Content -->
-		<div id="post" class="col-md-8">
+		<div id="content" class="col-md-8">
 
       <div class="thumbnail">
 
-        @if ($post->imageUrl)
-          <img src="{{ $post->imageUrl }}" alt="{{ $post->title }}" class="img-responsive">
-        @endif
+    		@if($post->image_url)
+    	  	<img src="{{ $post->image_url }}" alt="{{ $post->image }}" class="img-responsive">
+    	  @endif
 
-        <div class="caption">
+      	<div class="caption">
         	<h2>{{ $post->title }}</h2>
         	<ul class="list-inline">
-        		<li><i class="fa fa-user"></i> <span class="text-muted"><a href="{{ route('author',$author->slug) }}"> {{ $author->name }}</a></span></li>
-        		<li><i class="fa fa-clock-o"></i> {{ $post->date }}</li>
-            <li><i class="fa fa-tags"></i> <span class="text-muted"><a href="{{ route('category',$post->category->slug) }}">{{ $post->category->title }}</a></span></li>
-        		<li><i class="fa fa-comments"></i> <span class="text-muted">4 Comments</span></li>
+	          	<li><i class="fa fa-user"></i><a class="text-muted" href="{{ route('author', $post->author->slug) }}"> {{ $post->author->name }}</a></li>
+	          	<li><i class="fa fa-clock-o"></i> {{ $post->date }}</li>
+	          	<li><i class="fa fa-tags"></i><a href="{{ route('category', $post->category->slug) }}" class="text-muted"> {{ $post->category->title }}</a></li>
+	          	<li><i class="fa fa-comments"></i><a class="text-muted"> 4 Comments</a></li>
         	</ul>
-          <div class="text-justify"> 
-            {!! $post->bodyHtml !!}
-          </div>
+          <div class="text-justify">{!! $post->body_html !!}</div>
         </div>
       </div>
 
@@ -36,25 +31,23 @@
       		<div class="media">
       		  <div class="media-left media-top">
       		  	<span>
-                <a href="{{ route('author',$author->slug) }}">
-      		    	   <img src="{{ $author->gravatar() }}" alt="{{ $author->name }}" class="media-object">
-                </a>
+      		    	<img src="{{ $post->author->gravatar() }}" class="media-object">
       		  	</span>
       		  </div>
       		  <div class="media-body">
-      		    <h4 class="media-heading"><a href="{{ route('author',$author->slug) }}">{{ $author->name }}</a></h4>
-      		    <small class="text-muted"><a href="{{ route('author',$author->slug) }}"><i class="fa fa-newspaper-o"></i> 
-                <?php $postCount = $author->posts()->published()->count(); ?>
-                {{ $postCount }} {{ str_plural('post', $postCount) }}
-              </a></small>
-      		    <div class="text-muted">{!! $author->bioHtml !!}</div>
+      		    <h4 class="media-heading">{{ $post->author->name }}</h4>
+      		    <small class="text-muted"><i class="fa fa-newspaper-o"></i> 
+                <?php $postCount = $post->author->count(); ?>
+                {{ $postCount }} {{ str_plural('post', $postCount ) }}
+              </small>
+      		    <p class="text-muted">{{ $post->author->bio }}</p>
       		  </div>
       		</div>
       	</div>
       </div>
 
-      <!-- Comments Here -->
-
+      <!-- Comments -->
+      
 		</div><!-- Content Closer -->
 
 		@include('layouts.sidebar')
