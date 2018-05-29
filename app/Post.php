@@ -8,8 +8,7 @@ use GrahamCampbell\Markdown\Facades\Markdown;
 
 class Post extends Model
 {
-	# 1
-	// protected $fillable = ['view_count'];
+	protected $fillable = ['title', 'slug', 'excerpt', 'body', 'published_at', 'category_id'];
 
 	protected $dates = ['published_at'];
 
@@ -21,6 +20,11 @@ class Post extends Model
 	public function category()
 	{
 		return $this->belongsTo(Category::class);
+	}
+
+	public function setPublishedAtAtrribute($value)
+	{
+		$this->attributes['published_at'] == $value ?: NULL;
 	}
 
 	public function getImageUrlAttribute($value)
