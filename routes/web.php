@@ -31,10 +31,14 @@ Route::get('/author/{author}', [
 	'as' 		=> 'author'
 ]);
 
-
 Auth::routes();
 
 Route::get('/home', 'Backend\HomeController@index')->name('home');
+
+Route::put('/backend/blog/restore/{blog}', [
+	'uses'	=> 'Backend\BlogController@restore',
+	'as' 		=> 'blog.restore'
+]);
 
 Route::post('/signout', 'Auth\LoginController@userLogout')->name('signout');
 
