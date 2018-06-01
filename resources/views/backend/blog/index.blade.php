@@ -25,7 +25,7 @@
 
     	<!-- box-header -->
       <div class="box-header with-border">
-        <a href="{{ route('blog.create') }}" class="btn btn-primary">Add New</a>
+        <a href="{{ route('blog.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add New</a>
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
                   title="Collapse">
