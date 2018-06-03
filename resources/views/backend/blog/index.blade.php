@@ -24,14 +24,18 @@
     <div class="box">
 
     	<!-- box-header -->
-      <div class="box-header with-border">
-        <a href="{{ route('blog.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add New</a>
-        <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+      <div class="box-header with-border clearfix">
+        <div class="pull-left">
+          <a href="{{ route('blog.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add New</a>
+        </div>
+        <div class="box-tools pull-right" style="padding: 7px 0;">
+          <a href="?status=all">All</a> | 
+          <a href="?status=trash">Trash</a>
+          <!-- <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
                   title="Collapse">
             <i class="fa fa-minus"></i></button>
           <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-            <i class="fa fa-times"></i></button>
+            <i class="fa fa-times"></i></button> -->
         </div>
       </div>
       <!-- /.box-header -->
@@ -45,38 +49,11 @@
 	      		<strong>No record found.</strong>
 	      	</div>
 	      @else
-	      	<table class="table table-bordered table-hover">
-	      		<thead>
-	      			<th width="80">Action</th>
-	      			<th>Title</th>
-	      			<th width="120">Author</th>
-	      			<th width="150">Category</th>
-	      			<th width="170">Date</th>
-	      		</thead>
-	      		<tbody>
-	      			@foreach($posts as $post)
-		      			<tr>
-			      			<td>
-                    {!! Form::open(['method' => 'DELETE', 'route' => ['blog.destroy', $post->id]]) !!}
-  			      				<a href="{{ route('blog.edit', $post->id) }}" class="btn btn-xs btn-default">
-  			      					<i class="fa fa-edit"></i>
-  			      				</a>
-  		      					<button type="submit" class="btn btn-xs btn-danger">
-  		      						<i class="fa fa-times"></i>
-  		      					</button>
-			      				{!! Form::close() !!}
-			      			</td>
-			      			<td>{{ $post->title }}</td>
-			      			<td>{{ $post->author->name }}</td>
-			      			<td>{{ $post->category->title }}</td>
-			      			<td>
-			      				<abbr title="{{ $post->dateFormatted(true) }}">{{ $post->dateFormatted() }}</abbr> | 
-			      				{!! $post->publicationLabel() !!}
-			      			</td>
-			      		</tr>
-	      			@endforeach
-	      		</tbody>
-	      	</table>
+	      	@if ($onlyTrashed == TRUE)
+            @include('backend.blog.table-trash')
+          @else
+            @include('backend.blog.table')
+          @endif
 	      @endif
       </div>
       <!-- /.box-body -->

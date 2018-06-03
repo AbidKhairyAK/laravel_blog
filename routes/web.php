@@ -40,6 +40,11 @@ Route::put('/backend/blog/restore/{blog}', [
 	'as' 		=> 'blog.restore'
 ]);
 
+Route::delete('/backend/blog/force-destroy/{blog}', [
+	'uses'	=> 'Backend\BlogController@forceDestroy',
+	'as' 		=> 'blog.force-destroy'
+]);
+
 Route::post('/signout', 'Auth\LoginController@userLogout')->name('signout');
 
 Route::resource('/backend/blog', 'Backend\BlogController');
