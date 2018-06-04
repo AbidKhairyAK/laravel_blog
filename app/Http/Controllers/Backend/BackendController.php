@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 
 class BackendController extends Controller
 {
+	protected $limit = 5;
+
     /**
      * Create a new controller instance.
      *
@@ -17,5 +19,8 @@ class BackendController extends Controller
         $this->middleware('auth');
     }
 
-
+    public function error403()
+    {
+        return redirect('/backend/categories')->with('error-message','You cannot delete default category!');
+    }
 }

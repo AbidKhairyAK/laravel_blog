@@ -25,7 +25,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="treeview">
+        <li>
           <a href="/home">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
@@ -42,8 +42,8 @@
             <li><a href="{{ route('blog.create') }}"><i class="fa fa-circle-o"></i> Add New</a></li>
           </ul>
         </li>
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="{{ route('categories.index') }}">
             <i class="fa fa-user"></i> <span>Category</span>
           </a>
         </li>

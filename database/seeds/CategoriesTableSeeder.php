@@ -15,9 +15,13 @@ class CategoriesTableSeeder extends Seeder
 
         DB::table('categories')->insert([
         	[
-        		'title'	=> 'Web Design',
-        		'slug'	=> 'web-design'
-        	],
+                'title' => 'Uncategorized',
+                'slug'  => 'uncategorized'
+            ],
+            [
+                'title' => 'Web Design',
+                'slug'  => 'web-design'
+            ],
         	[
         		'title'	=> 'Web Programming',
         		'slug'	=> 'web-programming'

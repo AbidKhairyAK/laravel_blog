@@ -48,14 +48,14 @@
 
       <!-- box-body -->
       <div class="box-body">
-        @include('backend.blog.message')
+        @include('backend.partials.message')
 
       	@if (! $posts->count())
 	      	<div class="alert alert-danger">
 	      		<strong>No record found.</strong>
 	      	</div>
 	      @else
-	      	@if ($onlyTrashed == TRUE)
+          @if ($onlyTrashed == TRUE)
             @include('backend.blog.table-trash')
           @else
             @include('backend.blog.table')

@@ -45,6 +45,12 @@ Route::delete('/backend/blog/force-destroy/{blog}', [
 	'as' 		=> 'blog.force-destroy'
 ]);
 
+Route::get('/error/403', [
+	'uses'	=> 'Backend\BackendController@error403'
+]);
+
 Route::post('/signout', 'Auth\LoginController@userLogout')->name('signout');
 
 Route::resource('/backend/blog', 'Backend\BlogController');
+
+Route::resource('/backend/categories', 'Backend\CategoriesController');
