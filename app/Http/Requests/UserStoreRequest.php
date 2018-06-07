@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Session;
 
-class CategoryDestroyRequest extends FormRequest
+class UserStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,17 +13,7 @@ class CategoryDestroyRequest extends FormRequest
      */
     public function authorize()
     {
-        return !($this->route('category') == config('cms.default_category_id'));
-    }
-
-    public function failedAuthorization()
-    {
-        Session::put('page',[
-            'name'  => 'categories',
-            'title' => 'category' 
-        ]);
-        
-        abort(403);
+        return true;
     }
 
     /**
@@ -35,7 +24,11 @@ class CategoryDestroyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'  => 'required',
+            'email' => 'required|email|unique:users',
+            'password'  => 'required|confirmed',
+            'slug'  => 'required',
+            'bio'   => 'required'
         ];
     }
 }

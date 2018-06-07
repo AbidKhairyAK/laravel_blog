@@ -47,6 +47,11 @@
             <i class="fa fa-user"></i> <span>Category</span>
           </a>
         </li>
+        <li>
+          <a href="{{ route('users.index') }}">
+            <i class="fa fa-users"></i> <span>Users</span>
+          </a>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->

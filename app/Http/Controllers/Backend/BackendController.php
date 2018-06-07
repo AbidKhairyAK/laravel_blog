@@ -21,6 +21,9 @@ class BackendController extends Controller
 
     public function error403()
     {
-        return redirect('/backend/categories')->with('error-message','You cannot delete default category!');
+        $name = session('page')['name'];
+        $title = (session('page')['title'] == 'user') ? session('page')['title'].' or delete yourself' : session('page')['title'];
+
+        return redirect('/backend/'.$name)->with('error-message','You cannot delete default '.$title.'!');
     }
 }

@@ -54,3 +54,9 @@ Route::post('/signout', 'Auth\LoginController@userLogout')->name('signout');
 Route::resource('/backend/blog', 'Backend\BlogController');
 
 Route::resource('/backend/categories', 'Backend\CategoriesController');
+
+Route::get('/backend/users/confirm/{user}', [
+	'uses'	=> 'Backend\UsersController@confirm',
+	'as'	=> 'users.confirm'
+]);
+Route::resource('/backend/users', 'Backend\UsersController');

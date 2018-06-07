@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Session;
 
-class CategoryDestroyRequest extends FormRequest
+class UserDestroyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,14 +14,14 @@ class CategoryDestroyRequest extends FormRequest
      */
     public function authorize()
     {
-        return !($this->route('category') == config('cms.default_category_id'));
+        return !($this->route('user') == config('cms.default_user_id') || $this->route('user') == auth()->user()->id);
     }
 
     public function failedAuthorization()
     {
         Session::put('page',[
-            'name'  => 'categories',
-            'title' => 'category' 
+            'name'  => 'users',
+            'title' => 'user' 
         ]);
         
         abort(403);
