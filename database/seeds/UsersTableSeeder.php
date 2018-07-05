@@ -34,13 +34,27 @@ class UsersTableSeeder extends Seeder
   				'password' => bcrypt('secret'),
           'bio' => $faker->text(rand(250, 300))
   			],
-  			[
-  				'name' => 'Edo Masaru',
-  				'email' => 'edo@test.com',
+        [
+          'name' => 'Edo Masaru',
+          'email' => 'edo@test.com',
           'slug' => 'edo-masaru',
-  				'password' => bcrypt('secret'),
+          'password' => bcrypt('secret'),
           'bio' => $faker->text(rand(250, 300))
-  			],
+        ],
+        [
+          'name' => 'Rambo',
+          'email' => 'rambo@test.com',
+          'slug' => 'rambo',
+          'password' => bcrypt('secret'),
+          'bio' => $faker->text(rand(250, 300))
+        ],
+        [
+          'name' => 'Michael',
+          'email' => 'michael@test.com',
+          'slug' => 'michael',
+          'password' => bcrypt('secret'),
+          'bio' => $faker->text(rand(250, 300))
+        ],
   		]);
     }
 }

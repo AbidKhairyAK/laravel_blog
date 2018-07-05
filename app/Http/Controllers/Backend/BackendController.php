@@ -17,6 +17,7 @@ class BackendController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('check_permissions');
     }
 
     public function error403()

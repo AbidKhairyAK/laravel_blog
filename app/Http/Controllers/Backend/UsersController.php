@@ -5,9 +5,18 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
+use App\Post;
 
 class UsersController extends BackendController
 {
+    protected $uploadPath;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->uploadPath = public_path(config('cms.image.directory'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +53,9 @@ class UsersController extends BackendController
             'password' => bcrypt($request->password)
         ]);
 
-        User::create($request->all());
+        $user = User::create($request->all());
+        $user->attachRole($request->role);
+
 
         return redirect('backend/users')->with('message','New user was created successfully!');
     }
@@ -84,10 +95,28 @@ class UsersController extends BackendController
         if (empty($request->password)){
             unset($request['password']);
         }
-        
-        User::findOrFail($id)->update($request->all());
 
-        return redirect('backend/users')->with('message','User was updated successfully!');
+        $user = User::findOrFail($id);
+
+        $user->update($request->all());
+
+        $message = [
+            'type' => 'message',
+            'msg'  => 'User was updated successfully!'
+        ];
+
+        if ($id != config('cms.default_user_id'))
+        {
+            $user->detachRoles();
+            $user->attachRole($request->role);
+        } 
+        elseif ($request->role != 1) 
+        {
+            $message['type'] = 'error-message';
+            $message['msg']  = "You can't change the default user role's";
+        }
+
+        return redirect('backend/users')->with($message['type'], $message['msg']);
     }
 
     /**
@@ -101,13 +130,20 @@ class UsersController extends BackendController
         $user = User::findOrFail($id);
         $deleteOption = $request->delete_option;
         $selectedUser = $request->selected_user;
+        
+        if ($deleteOption == "delete")
+        {
+            $count = $user->posts()->withTrashed()->count();
 
-        if ($deleteOption == "delete") {
-            // delete user posts
-            $user->posts()->withTrashed()->forceDelete();
-            // delete the user
-        } elseif ($deleteOption == "attribute") {
-            $user->posts()->update(['author_id' => $selectedUser]);
+            for ($i = 0; $i < $count; $i++){
+                $image = $user->posts()->withTrashed()->first()->image;
+                $user->posts()->withTrashed()->first()->forceDelete();
+                $this->removeImage($image);
+            }
+        }
+        elseif ($deleteOption == "attribute")
+        {
+            $user->posts()->withTrashed()->update(['author_id' => $selectedUser]);
         }
 
         $user->delete();
@@ -121,5 +157,19 @@ class UsersController extends BackendController
         $users = User::where('id', '!=', $user->id)->pluck('name', 'id');
 
         return view('backend.users.confirm', compact('user','users'));
+    }
+
+    private function removeImage($image)
+    {
+        if ( ! empty($image) ) {
+
+            $imagePath = $this->uploadPath.'/'.$image;
+            $ext = substr(strrchr($image, '.'), 1);
+            $thumbnail = str_replace(".{$ext}", "_thumb.{$ext}", $image);
+            $thumbnailPath = $this->uploadPath.'/'.$thumbnail;
+
+            if ( file_exists($imagePath) ) unlink($imagePath);
+            if ( file_exists($thumbnailPath) ) unlink($thumbnailPath);
+        } 
     }
 }

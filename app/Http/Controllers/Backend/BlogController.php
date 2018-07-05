@@ -38,24 +38,28 @@ class BlogController extends BackendController
         } else if ($status == 'draft') {
             $posts       = Post::draft()->with('author','category')->latest()->paginate($this->limit);
             $postCount   = Post::draft()->count();
+        } else if ($status == 'own') {
+            $posts       = $request->user()->posts()->with('author','category')->latest()->paginate($this->limit);
+            $postCount   = $request->user()->posts()->count();
         } else {
             $posts       = Post::with('author','category')->latest()->paginate($this->limit);
             $postCount   = Post::count();
         }
 
-        $statusList = $this->statusList();
+        $statusList = $this->statusList($request);
 
         return view('backend.blog.index', compact('posts','postCount','onlyTrashed','statusList'));
     }
 
-    private function statusList()
+    private function statusList($request)
     {
         return [
-            'all' => Post::count(),
+            'own'       => $request->user()->posts()->count(),
+            'all'       => Post::count(),
             'published' => Post::published()->count(),
             'scheduled' => Post::scheduled()->count(),
-            'draft' => Post::draft()->count(),
-            'trash' => Post::onlyTrashed()->count(),
+            'draft'     => Post::draft()->count(),
+            'trash'     => Post::onlyTrashed()->count(),
         ];
     }
 
@@ -89,23 +93,23 @@ class BlogController extends BackendController
 
         if ($request->hasFile('image')) {
             $image       = $request->file('image');
-            $fileName    = $image->getClientOriginalName();
+            $extension   = $image->getClientOriginalExtension();
+            $randName    = rand(11111, 99999).'.'.$extension;
             $destination = $this->uploadPath;
 
-            $successUploaded = $image->move($destination,$fileName);
+            $successUploaded = $image->move($destination,$randName);
 
             if ($successUploaded) {
                 $width      = config('cms.image.thumbnail.width');
                 $height      = config('cms.image.thumbnail.height');
-                $extension  = $image->getClientOriginalExtension();
-                $thumbnail  = str_replace(".{$extension}", "_thumb.{$extension}", $fileName);
+                $thumbnail  = str_replace(".{$extension}", "_thumb.{$extension}", $randName);
 
-                Image::make($destination.'/'.$fileName)
+                Image::make($destination.'/'.$randName)
                     ->resize($width, $height)
                     ->save($destination.'/'.$thumbnail);
             }
 
-            $data['image'] = $fileName;
+            $data['image'] = $randName;
         }
 
         return $data;
@@ -197,6 +201,6 @@ class BlogController extends BackendController
 
             if ( file_exists($imagePath) ) unlink($imagePath);
             if ( file_exists($thumbnailPath) ) unlink($thumbnailPath);
-        } 
+        }
     }
 }

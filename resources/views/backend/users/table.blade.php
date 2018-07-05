@@ -27,7 +27,11 @@
         <td>{{ $user->name }}</td>
         <td>{{ $user->email }}</td>
         <td>{{ $user->posts->count() }}</td>
-        <td>-</td>
+
+        @if ($userRole = $user->roles->first())
+          <td>{{ $userRole->display_name }}</td>
+        @endif
+        
   		</tr>
 		@endforeach
 	</tbody>
