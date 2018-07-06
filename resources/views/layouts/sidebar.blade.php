@@ -1,10 +1,10 @@
 		<!-- Sidebar -->
 		<div id="sidebar" class="col-md-4">
 
-			<!-- Search Bar 
-			<form action="" method="">
+			<!-- Search Bar  -->
+			<form action="{{ route('blog') }}">
 			  <div class="input-group search">
-			    <input type="text" class="form-control" placeholder="Search...">
+			    <input type="text" name="term" value="{{ request('term') }}" class="form-control" placeholder="Search...">
 			    <div class="input-group-btn">
 			      <button class="btn btn-default" type="submit">
 			        <i class="glyphicon glyphicon-search"></i>
@@ -12,7 +12,6 @@
 			    </div>
 			  </div>
 			</form>
-			-->
 
 			<!-- Category -->
 			<div id="category" class="panel panel-default">

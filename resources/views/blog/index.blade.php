@@ -11,13 +11,7 @@
 			<div class="alert alert-warning">Nothing Found!</div>
 		@else
 
-			@if(isset($categoryName))
-				<div class="alert alert-info">Category : <strong>{{ $categoryName }}</strong></div>
-			@endif
-
-			@if(isset($authorName))
-				<div class="alert alert-info">Author : <strong>{{ $authorName }}</strong></div>
-			@endif
+			@include('blog.alert')
 
 			@foreach($posts as $post)
 	      <div class="thumbnail">
@@ -47,7 +41,7 @@
 
 	  <!-- Pager -->
 	  <ul class="pager">
-	    {{ $posts->links() }}
+	    {{ $posts->appends(request()->only(['term']))->links() }}
 	  </ul>
 
 	</div><!-- Content Closer -->
