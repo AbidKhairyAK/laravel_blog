@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Post;
 use App\Category;
 use App\User;
+use App\Post;
+use App\Tag;
 
 class BlogController extends Controller
 {
@@ -15,7 +16,7 @@ class BlogController extends Controller
     {
     	// $posts = Post::with('author')->orderBy('created_at','desc')->get();
     	// $posts = Post::with('author')->latest()->get();
-    	$posts = Post::with('author')
+    	$posts = Post::with('author', 'tags', 'category')
 							->latestFirst()
                             ->published()
                             ->filter(request('term'))
@@ -37,7 +38,7 @@ class BlogController extends Controller
         $categoryName = $category->title;
 
         $posts = $category->posts()
-                            ->with('author')
+                            ->with('author', 'tags', 'category')
                             ->published()
                             ->latestFirst()
                             ->simplePaginate($this->limit);
@@ -45,12 +46,25 @@ class BlogController extends Controller
         return view('blog.index', compact('posts', 'categoryName'));
     }
 
+    public function tag(Tag $tag)
+    {
+        $tagName = $tag->name;
+
+        $posts = $tag->posts()
+                            ->with('author', 'tags', 'category')
+                            ->published()
+                            ->latestFirst()
+                            ->simplePaginate($this->limit);
+                            
+        return view('blog.index', compact('posts', 'tagName'));
+    }
+
     public function author(User $author)
     {
         $authorName = $author->name;
 
         $posts = $author->posts()
-                            ->with('category')
+                            ->with('category', 'tags', 'category')
                             ->published()
                             ->latestFirst()
                             ->simplePaginate($this->limit);

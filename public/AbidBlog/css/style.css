@@ -69,11 +69,10 @@ a, p, h4, li, button, .caption, .label, .media-body {
 	padding-right: 30px;
 }
 .thumbnail .panel li {
-	margin-right: 15px;
+	margin-right: 0;
 }
 .thumbnail .panel li:last-child {
 	margin-top: -1px;
-	margin-right: 0;
 }
 .pager {
 	margin: 0;
