@@ -30,6 +30,11 @@ class Post extends Model
 		return $this->belongsToMany(Tag::class);
 	}
 
+	public function comments()
+	{
+		return $this->hasMany(Comment::class);
+	}
+
 	public function setPublishedAtAtrribute($value)
 	{
 		$this->attributes['published_at'] == $value ?: NULL;
