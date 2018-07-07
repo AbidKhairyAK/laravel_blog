@@ -13,27 +13,32 @@
 
 Route::get('/', [
 	'uses' 	=> 'BlogController@index',
-	'as' 		=> 'blog'
+	'as' 	=> 'blog'
 ]);
 
 Route::get('/blog/{post}', [
 	'uses' 	=> 'BlogController@show',
-	'as' 		=> 'blog.post'
+	'as' 	=> 'blog.post'
 ]);
 
 Route::get('/category/{category}', [
 	'uses'	=> 'BlogController@category',
-	'as' 		=> 'category'
+	'as' 	=> 'category'
 ]);
 
 Route::get('/author/{author}', [
 	'uses'	=> 'BlogController@author',
-	'as' 		=> 'author'
+	'as' 	=> 'author'
 ]);
 
 Route::get('/tag/{tag}', [
 	'uses'	=> 'BlogController@tag',
-	'as' 		=> 'tag'
+	'as' 	=> 'tag'
+]);
+
+Route::post('/blog/{blog}/comments', [
+	'uses'	=> 'CommentsController@store',
+	'as' 	=> 'blog.comments'
 ]);
 
 Auth::routes();
@@ -44,12 +49,12 @@ Route::put('/edit-account', 'Backend\HomeController@update');
 
 Route::put('/backend/blog/restore/{blog}', [
 	'uses'	=> 'Backend\BlogController@restore',
-	'as' 		=> 'blog.restore'
+	'as' 	=> 'blog.restore'
 ]);
 
 Route::delete('/backend/blog/force-destroy/{blog}', [
 	'uses'	=> 'Backend\BlogController@forceDestroy',
-	'as' 		=> 'blog.force-destroy'
+	'as' 	=> 'blog.force-destroy'
 ]);
 
 Route::get('/error/403', [

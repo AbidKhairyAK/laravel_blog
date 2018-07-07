@@ -79,8 +79,8 @@
 
   </div><!-- Comment Panel Body Closer -->
 
-  <nav>
-    {!! $postComments->links() !!}
+  <nav class="pager" style="margin: 0 15px 30px;">
+    {!! $postComments->fragment("comments")->links() !!}
   </nav>
 
   <hr class="row">
@@ -88,26 +88,27 @@
   <!-- Post Comment -->
   <div class="panel-body">
     <h3 class="text-center">Leave a comment</h3>
-    <form action="/action_page.php">
+    {!! Form::open(['route' => ['blog.comments', $post->slug]]) !!}
         <div class="form-group">
           <label for="name">Name <small class="text-danger">*</small></label>
-          <input type="name" class="form-control" id="name" placeholder="Enter Your Name" name="name">
+          {!! Form::text('author_name', null, ['class' => 'form-control', 'id' => 'name']) !!}
         </div>
         <div class="form-group">
           <label for="email">Email <small class="text-danger">*</small></label>
-          <input type="email" class="form-control" id="email" placeholder="Enter Your Email" name="email">
+          {!! Form::text('author_email', null, ['class' => 'form-control', 'id' => 'email']) !!}
         </div>
         <div class="form-group">
           <label for="web">Website</label>
-          <input type="text" class="form-control" id="web" placeholder="Enter Your Web" name="web">
+          {!! Form::text('author_url', null, ['class' => 'form-control', 'id' => 'web']) !!}
         </div>
         <div class="form-group">
           <label for="comment">Comment <small class="text-danger">*</small></label>
-          <textarea type="text" class="form-control" rows="5" id="comment" placeholder="Enter Your Comment" name="comment"></textarea>
+          {!! Form::textarea('body', null, ['class' => 'form-control', 'id' => 'comment', 'rows' => 5]) !!}
         </div>
         <button type="submit" class="btn btn-lg btn-success">Submit</button>
         <i class="text-muted pull-right"><small class="text-danger">*</small> Indicates required fields</i>
-      </form>
+        {!! Form::hidden('post_id', $post->id) !!}
+      {!! Form::close() !!}
   </div><!-- Post Comment Closer -->
 
 </div><!-- Comment Closer -->
