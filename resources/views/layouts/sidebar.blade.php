@@ -68,4 +68,16 @@
 				</div>
 			</div>
 
+			<!-- Category -->
+			<div id="category" class="panel panel-default">
+				<div class="panel-heading">ARCHIVES</div>
+				<div class="panel-body">
+					<div class="list-group">
+						@foreach($archives as $archive)
+							<a href="{{ route('blog', ['month' => $archive->month, 'year' => $archive->year]) }}" class="list-group-item">{{ $archive->month . " " . $archive->year }} <span class="badge">{{ $archive->post_count }}</span></a>
+						@endforeach
+					</div>
+				</div>
+			</div>
+
 		</div><!-- Sidebar Closer -->

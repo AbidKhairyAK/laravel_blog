@@ -42,7 +42,7 @@
 
 	  <!-- Pager -->
 	  <ul class="pager">
-	    {{ $posts->appends(request()->only(['term']))->links() }}
+	    {{ $posts->appends(request()->only(['term', 'month', 'year']))->links() }}
 	  </ul>
 
 	</div><!-- Content Closer -->
