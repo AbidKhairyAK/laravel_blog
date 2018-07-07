@@ -14,6 +14,7 @@
 			@include('blog.alert')
 
 			@foreach($posts as $post)
+				<?php $commentsNumber = $post->comments->count(); ?>
 	      <div class="thumbnail">
 	        <a href="{{ route('blog.post', $post->slug) }}">
 
@@ -31,9 +32,9 @@
 	          	<li><i class="fa fa-user"></i><a class="text-muted" href="{{ route('author', $post->author->slug) }}"> {{ $post->author->name }}</a></li>
 	          	<li><i class="fa fa-clock-o"></i> {{ $post->date }}</li>
 	          	<li><i class="fa fa-folder"></i><a href="{{ route('category', $post->category->slug) }}" class="text-muted"> {{ $post->category->title }}</a></li>
-	          	<li><i class="fa fa-comments"></i><a class="text-muted"> 4 Comments</a></li>
+	          	<li><i class="fa fa-comments"></i><a href="{{ route('blog.post', $post->slug) }}#comments" class="text-muted"> {{ $post->commentsNumber('Comment') }}</a></li>
 	          	<li><i class="fa fa-tags"></i>{!! $post->tags_html !!}</li>
-	          	<li class="pull-right text-muted"><a href="{{ route('blog.post', $post->slug) }}" target="_blank">Continue Reading &raquo;</a></li>
+	          	<li class="pull-right text-muted"><a href="{{ route('blog.post', $post->slug) }}">Continue Reading &raquo;</a></li>
 	          </ul>
 	        </div>
 	      </div>

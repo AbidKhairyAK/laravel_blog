@@ -20,7 +20,7 @@
 	          	<li><i class="fa fa-clock-o"></i> {{ $post->date }}</li>
               <li><i class="fa fa-tags"></i><a href="{{ route('category', $post->category->slug) }}" class="text-muted"> {{ $post->category->title }}</a></li>
 	          	<li><i class="fa fa-tags"></i>{!! $post->tags_html !!}</li>
-	          	<li><i class="fa fa-comments"></i><a class="text-muted"> 4 Comments</a></li>
+	          	<li><i class="fa fa-comments"></i><a href="#comments" class="text-muted"> {{ $post->commentsNumber('Comment') }}</a></li>
         	</ul>
           <div class="text-justify">{!! $post->body_html !!}</div>
         </div>
@@ -38,8 +38,7 @@
       		  <div class="media-body">
       		    <h4 class="media-heading">{{ $post->author->name }}</h4>
       		    <small class="text-muted"><i class="fa fa-newspaper-o"></i> 
-                <?php $postCount = $post->author->count(); ?>
-                {{ $postCount }} {{ str_plural('post', $postCount ) }}
+                {{ $post->commentsNumber('Comment') }}
               </small>
       		    <p class="text-muted">{{ $post->author->bio }}</p>
       		  </div>
@@ -48,6 +47,7 @@
       </div>
 
       <!-- Comments -->
+      @include('blog.comment')
       
 		</div><!-- Content Closer -->
 

@@ -1,23 +1,19 @@
 <div id="comments" class="panel panel-default">
   <div class="panel-body">
-    <h3 class="text-center"><i class="fa fa-comments"></i> 4 Comments</h3>
+    <h3 class="text-center"><i class="fa fa-comments"></i> {{ $post->commentsNumber('Comment') }}</h3>
 
     <!-- Comment list -->
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h4>John Doe <small>January 14, 2016</small></h4>
-        <hr>
-        <div>
-          <p>
-            Donec tempor, diam vel faucibus tempor, ex leo vulputate dui, nec molestie nisi nulla id libero. Vestibulum sollicitudin est at tristique tincidunt. Integer a accumsan tortor. Sed mollis euismod varius. Vestibulum magna sem, blandit ac luctus id, luctus non justo.
-          </p>
-          <p>
-            Sed sit amet lorem hendrerit, rhoncus felis at, tincidunt tellus. Donec dignissim vitae nibh posuere venenatis. Vivamus tristique mattis pellentesque. Nullam at lorem venenatis, finibus magna in, gravida metus.
-          </p>
+    @foreach($post->comments as $comment)
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h4>{{ $comment->author_name }} <small>{{ $comment->date }}</small></h4>
+          <hr>
+          <div>{!! $comment->body_html !!}</div>
         </div>
       </div>
-    </div>
+    @endforeach
 
+    {{--
     <div class="panel panel-default">
       <div class="panel-body">
         <h4>John Doe <small>January 14, 2016</small></h4>
@@ -79,6 +75,7 @@
         </div>
       </div>
     </div>
+    --}}
 
   </div><!-- Comment Panel Body Closer -->
 
