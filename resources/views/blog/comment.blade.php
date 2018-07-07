@@ -3,7 +3,7 @@
     <h3 class="text-center"><i class="fa fa-comments"></i> {{ $post->commentsNumber('Comment') }}</h3>
 
     <!-- Comment list -->
-    @foreach($post->comments as $comment)
+    @foreach($postComments as $comment)
       <div class="panel panel-default">
         <div class="panel-body">
           <h4>{{ $comment->author_name }} <small>{{ $comment->date }}</small></h4>
@@ -78,6 +78,10 @@
     --}}
 
   </div><!-- Comment Panel Body Closer -->
+
+  <nav>
+    {!! $postComments->links() !!}
+  </nav>
 
   <hr class="row">
 
