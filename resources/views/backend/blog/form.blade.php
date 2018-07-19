@@ -66,7 +66,8 @@
         <a id="draft-btn" href="" class="btn btn-default">Save Draft</a> 
       </div>
       <div class="pull-right">
-        {!! Form::submit('Publish', ['class' => 'btn btn-primary']) !!}
+        {!! Form::hidden('check', null, ['class' => 'check']) !!}
+        {!! Form::submit('Publish', ['class' => 'btn btn-primary publish']) !!}
       </div>
     </div>
   </div>
@@ -80,6 +81,21 @@
 
         @if ($errors->has('category_id'))
           <span class="help-block">{{ $errors->first('category_id') }}</span>
+        @endif
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <div class="box-header with-border">
+      <h3 class="box-title">Tags</h3>
+    </div>
+    <div class="box-body">
+      <div class="form-group {{ $errors->has('post_tags') ? 'has-error' : '' }}">
+        {!! Form::text('post_tags', null, ['class' => 'form-control']) !!}
+        <small class="text-muted">e.g. : Tag 1, Tag 2, Tag 3</small>
+        
+        @if ($errors->has('post_tags'))
+          <span class="help-block">{{ $errors->first('post_tags') }}</span>
         @endif
       </div>
     </div>

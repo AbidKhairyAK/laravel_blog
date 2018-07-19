@@ -1,58 +1,72 @@
 @extends('layouts.main')
 
+@section('post', 'active')
+
 @section('content')
-	<!-- Main -->
-	<div id="post" class="container">
+ <!-- Main -->
+<div id="post" class="container">
 
-		<!-- Content -->
-		<div id="content" class="col-md-8">
+  <!-- Content -->
+  <div id="content" class="col-sm-8">
 
-      <div class="thumbnail">
-
-    		@if($post->image_url)
-    	  	<img src="{{ $post->image_url }}" alt="{{ $post->image }}" class="img-responsive">
-    	  @endif
-
-      	<div class="caption">
-        	<h2>{{ $post->title }}</h2>
-        	<ul class="list-inline">
-	          	<li><i class="fa fa-user"></i><a class="text-muted" href="{{ route('author', $post->author->slug) }}"> {{ $post->author->name }}</a></li>
-	          	<li><i class="fa fa-clock-o"></i> {{ $post->date }}</li>
-              <li><i class="fa fa-tags"></i><a href="{{ route('category', $post->category->slug) }}" class="text-muted"> {{ $post->category->title }}</a></li>
-	          	<li><i class="fa fa-tags"></i>{!! $post->tags_html !!}</li>
-	          	<li><i class="fa fa-comments"></i><a href="#comments" class="text-muted"> {{ $post->commentsNumber('Comment') }}</a></li>
-        	</ul>
-          <div class="text-justify">{!! $post->body_html !!}</div>
+    <div class="thumbnail">
+      @if($post->image_url)
+        <img src="{{ $post->image_url }}" alt="{{ $post->image }}" class="img-responsive" style="width: 100%;">
+      @endif
+      <div class="caption head">
+        <a href="{{ route('category', $post->category->slug) }}" class="category">{{ $post->category->title }}</a>
+        <h2 class="title">{{ $post->title }}</h2>
+        <p class="info text-muted">
+          <a>{{ $post->date }}</a> <span class="bull">&bullet;</span> 
+          <a href="{{ route('author', $post->author->slug) }}">{{ $post->author->name }}</a> <span class="bull">&bullet;</span> 
+          {!! $post->tags_html !!} <span class="bull">&bullet;</span> 
+          <a href="#comments">{{ $post->commentsNumber('Comment') }}</a>
+        </p>
+      </div>
+      <div class="caption body clearfix">
+        <div class="content">{!! $post->body_html !!}</div>
+        <div class="tags pull-left">
+          <h4>Tags :</h4>
+          <a href="#" class="tag"><b>#</b> this</a>
+          <a href="#" class="tag"><b>#</b> not</a>
+          <a href="#" class="tag"><b>#</b> less</a>
+          <a href="#" class="tag"><b>#</b> CSS</a>
+          <a href="#" class="tag"><b>#</b> day</a>
+        </div>
+        <div class="extra pull-right">
+          <p><i class="fa fa-eye"></i> {{ $post->view_count }} {{ str_plural('View', $post->view_count) }}</p>
+          <a href="" title="Share on facebook"><i class="fa fa-facebook"></i></a>
+          <a href="" title="Share on twitter"><i class="fa fa-twitter"></i></a>
+          <a href="" title="Share on google"><i class="fa fa-google-plus"></i></a>
         </div>
       </div>
+    </div><!-- Thumbnail Closer -->
 
-      <!-- Author -->
-      <div id="author" class="panel panel-default">
-      	<div class="panel-body">
-      		<div class="media">
-      		  <div class="media-left media-top">
-      		  	<span>
-      		    	<img src="{{ $post->author->gravatar() }}" class="media-object">
-      		  	</span>
-      		  </div>
-      		  <div class="media-body">
-      		    <h4 class="media-heading">{{ $post->author->name }}</h4>
-      		    <small class="text-muted"><i class="fa fa-newspaper-o"></i> 
-                {{ $post->commentsNumber('Comment') }}
-              </small>
-      		    <p class="text-muted">{{ $post->author->bio }}</p>
-      		  </div>
-      		</div>
-      	</div>
+    <div id="author" class="thumbnail">
+      <div class="caption">
+        <div class="media">
+          <div class="media-left media-top">
+            <div class="media-image">
+              <img class="media-object" src="{{ $post->author->gravatar() }}" alt="">
+            </div>
+          </div>
+          <div class="media-body media-caption">
+            <a href=""><h4 class="media-heading">{{ $post->author->name }}</h4></a>
+            <p class="info text-muted">{{ $post->commentsNumber('Comment') }}</p>
+            <p class="bio">
+              {{ $post->author->bio }}
+            </p>
+          </div>
+        </div>
       </div>
+    </div><!-- Thumbnail Closer -->
 
-      <!-- Comments -->
-      @include('blog.comment')
-      
-		</div><!-- Content Closer -->
+    @include('blog.comment')
 
-		@include('layouts.sidebar')
+  </div><!-- Content Closer -->
 
-	</div><!-- Main Closer -->
+  @include('layouts.sidebar')
+
+</div><!-- Main Closer -->
 
 @endsection

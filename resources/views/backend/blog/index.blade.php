@@ -53,29 +53,14 @@
       <div class="box-body">
         @include('backend.partials.message')
 
-      	@if (! $posts->count())
-	      	<div class="alert alert-danger">
-	      		<strong>No record found.</strong>
-	      	</div>
-	      @else
-          @if ($onlyTrashed == TRUE)
-            @include('backend.blog.table-trash')
-          @else
-            @include('backend.blog.table')
-          @endif
-	      @endif
+        @if ($onlyTrashed == TRUE)
+          @include('backend.blog.table-trash')
+        @else
+          @include('backend.blog.table')
+        @endif
       </div>
       <!-- /.box-body -->
 
-      <div class="box-footer clearfix">
-      	<div class="pull-left">
-	      	{{ $posts->appends( Request::query() )->render() }}
-      	</div>
-      	<div class="pull-right text-muted">
-      		<small>{{ $postCount }} {{ str_plural('item', $postCount) }}</small>
-      	</div>
-      </div>
-      <!-- /.box-footer-->
     </div>
     <!-- /.box -->
 
@@ -86,6 +71,21 @@
 
 @section('script')
 	<script type="text/javascript">
-		$('ul.pagination').addClass('pagination-sm no-margin')
+		$('ul.pagination').addClass('pagination-sm no-margin');
+
+    $(function() {
+        $('#posts-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{!! route('blog.data') !!}',
+            columns: [
+                { data: 'action', name: 'action', orderable: false, searchable: false },
+                { data: 'title', name: 'title' },
+                { data: 'author', name: 'author' },
+                { data: 'category', name: 'category' },
+                { data: 'label', name: 'label' },
+            ]
+        });
+    });
 	</script>
 @endsection

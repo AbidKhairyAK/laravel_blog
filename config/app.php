@@ -155,6 +155,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
+        Brian2694\Toastr\ToastrServiceProvider::class,
         
         /*
          * Application Service Providers...
@@ -222,6 +224,9 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Laratrust'   => Laratrust\LaratrustFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
+
     ],
 
 ];

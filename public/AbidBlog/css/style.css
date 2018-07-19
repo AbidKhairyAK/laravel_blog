@@ -71,9 +71,6 @@ a, p, h4, li, button, .caption, .label, .media-body {
 .thumbnail .panel li {
 	margin-right: 0;
 }
-.thumbnail .panel li:last-child {
-	margin-top: -1px;
-}
 .pager {
 	margin: 0;
 	margin-bottom: 30px;

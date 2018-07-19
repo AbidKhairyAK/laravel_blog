@@ -1,5 +1,10 @@
+@section('style')
+  <link rel="stylesheet" type="text/css" href="/AdminLTE-2.4.3/plugins/tagEditor/jquery.tag-editor.css">
+@endsection
 
 @section('script')
+  <script type="text/javascript" src="/AdminLTE-2.4.3/plugins/tagEditor/jquery.caret.min.js"></script>
+  <script type="text/javascript" src="/AdminLTE-2.4.3/plugins/tagEditor/jquery.tag-editor.min.js"></script>
 	<script type="text/javascript">
 		$('ul.pagination').addClass('pagination-sm no-margin');
 
@@ -27,5 +32,23 @@
       $('#published_at').val("");
       $('#post-form').submit();
     });
+
+    var options = {};
+
+    @if ($post->exists)
+      options = {
+        initialTags: {!! json_encode($post->tags->pluck('name')) !!}
+      };
+    @endif
+
+    $('input[name=post_tags]').tagEditor(options);
+
+    $('document').ready(function(){
+      $('.check').val("draft");
+      $('.publish').click(function(){
+        $('.check').val("publish");
+      });
+    });
+
 	</script>
 @endsection

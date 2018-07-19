@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Brian2694\Toastr\Facades\Toastr;
+use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Category;
@@ -16,10 +18,23 @@ class CategoriesController extends BackendController
      */
     public function index()
     {
-        $categories = Category::with('posts')->orderBy('title')->paginate($this->limit);
-        $categoriesCount = Category::count();
+        return view('backend.categories.index');
+    }
 
-        return view('backend.categories.index', compact('categories','categoriesCount'));
+    public function data()
+    {
+        $categories = Category::with('posts');
+        
+        return Datatables::of($categories)
+                ->addColumn('action', function($category) {
+                    $delete_button  = ($category->id == config('cms.default_category_id')) ? '<button onclick="return false" type="submit" class="btn btn-xs btn-danger disabled"><i class="fa fa-times"></i></button>' : '<button onclick="return confirm('."'Are you sure?'".')" type="submit" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button>';
+
+                    return '<form action="'.route('categories.destroy', $category->id).'" method="post">' . csrf_field() . method_field("DELETE") . '<a href="'.route('categories.edit', $category->id).'" class="btn btn-xs btn-default"><i class="fa fa-edit"></i></a>'. $delete_button .'</form>';
+                })
+                ->addColumn('post_count', function($category) {
+                    return $category->posts->count();
+                })
+                ->make(true);
     }
 
     /**
@@ -43,7 +58,9 @@ class CategoriesController extends BackendController
     {
         Category::create($request->all());
 
-        return redirect('backend/categories')->with('message','New category was created successfully!');
+        Toastr::success('New category was created successfully!','Create Category');
+
+        return redirect('backend/categories');
     }
 
     /**
@@ -80,7 +97,9 @@ class CategoriesController extends BackendController
     {
         Category::findOrFail($id)->update($request->all());
 
-        return redirect('backend/categories')->with('message','Category was updated successfully!');
+        Toastr::success('Category was updated successfully!', 'Update Category');
+
+        return redirect('backend/categories');
     }
 
     /**
@@ -96,6 +115,8 @@ class CategoriesController extends BackendController
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return redirect('backend/categories')->with('message','Category was deleted successfully!');
+        Toastr::success('Category was deleted successfully!', 'Delete Category');
+
+        return redirect('backend/categories');
     }
 }

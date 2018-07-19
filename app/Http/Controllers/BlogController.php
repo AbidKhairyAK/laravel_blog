@@ -20,7 +20,7 @@ class BlogController extends Controller
 							->latestFirst()
                             ->published()
                             ->filter(request()->only(['term', 'year', 'month']))
-                            ->simplePaginate($this->limit);
+                            ->paginate($this->limit);
 
     	return view('blog.index', compact('posts'));
     }
@@ -51,10 +51,10 @@ class BlogController extends Controller
         $tagName = $tag->name;
 
         $posts = $tag->posts()
-                            ->with('author', 'comments', 'tags', 'category')
-                            ->published()
-                            ->latestFirst()
-                            ->simplePaginate($this->limit);
+                    ->with('author', 'comments', 'tags', 'category')
+                    ->published()
+                    ->latestFirst()
+                    ->simplePaginate($this->limit);
                             
         return view('blog.index', compact('posts', 'tagName'));
     }

@@ -35,13 +35,6 @@ class Post extends Model
 		return $this->hasMany(Comment::class);
 	}
 
-	public function commentsNumber($label = "Comment")
-	{
-		$commentsNumber = $this->comments->count();
-
-		return $commentsNumber." ".str_plural($label, $commentsNumber);
-	}
-
 	public function setPublishedAtAtrribute($value)
 	{
 		$this->attributes['published_at'] == $value ?: NULL;
@@ -97,10 +90,17 @@ class Post extends Model
 		$anchors = [];
 
 		foreach($this->tags as $tag) {
-			$anchors[] = '<a href="' . route('tag', $tag->slug) . '" class="text-muted"> ' . $tag->name . '</a>';
+			$anchors[] = '<a href="' . route('tag', $tag->slug) . '"> #' . $tag->name . '</a>';
 		}
 
 		return implode(", ", $anchors);
+	}
+
+	public function commentsNumber($label = "Comment")
+	{
+		$commentsNumber = $this->comments->count();
+
+		return $commentsNumber." ".str_plural($label, ($commentsNumber ? $commentsNumber : 1));
 	}
 
 	public function dateFormatted($showTimes= false)
@@ -130,6 +130,27 @@ class Post extends Model
 						->groupBy('year', 'month')
 						->orderByRaw('min(published_at) desc')
 						->get();
+	}
+
+	public function createTags($tagString)
+	{
+		$tags = explode(",", $tagString);
+		$tagIds = [];
+
+		foreach ($tags as $tag) 
+		{
+			$newTag = Tag::firstOrCreate([
+				'slug' => str_slug($tag),
+				'name' => ucwords(trim($tag))
+			]);
+
+			$newTag->save();
+
+			$tagIds[] = $newTag->id;
+		}
+
+		$this->tags()->detach();
+		$this->tags()->attach($tagIds);
 	}
 
 	public function scopeLatestFirst($query)
@@ -168,16 +189,16 @@ class Post extends Model
 		}
 
 		// check if any term entered
-		if (isset($filter['term']) && $term = $filter('term')) {
+		if (isset($filter['term']) && $term = $filter['term']) {
 		    $query->where(function($q) use ($term) {
+		        $q->orWhere('title', 'LIKE', "%{$term}%");
+		        $q->orWhere('excerpt', 'LIKE', "%{$term}%");
 		    	// $q->whereHas('author', function($qr) use ($term) {
 		    	// 	$qr->where('name', 'LIKE', "%{$term}%");
 		    	// });
 		    	// $q->orWhereHas('category', function($qr) use ($term) {
 		    	// 	$qr->where('title', 'LIKE', "%{$term}%");
 		    	// });
-		        $q->orWhere('title', 'LIKE', "%{$term}%");
-		        $q->orWhere('excerpt', 'LIKE', "%{$term}%");
 		    });
 		}
 	}

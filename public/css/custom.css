@@ -5,3 +5,7 @@
 a.selected-status {
 	font-weight: 700;
 }
+.tag-editor {
+	border: 1px solid #d2d6de;
+	font-size: 13px;
+}

@@ -36,27 +36,11 @@
 
       <!-- box-body -->
       <div class="box-body">
-        @include('backend.partials.message')
-
-      	@if (! $categories->count())
-	      	<div class="alert alert-danger">
-	      		<strong>No record found.</strong>
-	      	</div>
-	      @else
-          @include('backend.categories.table')
-	      @endif
+        @include('backend.partials.message')      	
+        @include('backend.categories.table')
       </div>
       <!-- /.box-body -->
 
-      <div class="box-footer clearfix">
-      	<div class="pull-left">
-	      	{{ $categories->appends( Request::query() )->render() }}
-      	</div>
-      	<div class="pull-right text-muted">
-      		<small>{{ $categoriesCount }} {{ str_plural('item', $categoriesCount) }}</small>
-      	</div>
-      </div>
-      <!-- /.box-footer-->
     </div>
     <!-- /.box -->
 
@@ -67,6 +51,20 @@
 
 @section('script')
 	<script type="text/javascript">
-		$('ul.pagination').addClass('pagination-sm no-margin')
+		$('ul.pagination').addClass('pagination-sm no-margin');
+
+    $(function() {
+        $('#categories-table').DataTable({
+            processing: true,
+            serverSide: true,
+            order: [[1, 'asc']],
+            ajax: '{!! route('categories.data') !!}',
+            columns: [
+                { data: 'action', name: 'action', orderable: false, searchable: false },
+                { data: 'title', name: 'title' },
+                { data: 'post_count', name: 'post_count' }
+            ]
+        });
+    });
 	</script>
 @endsection

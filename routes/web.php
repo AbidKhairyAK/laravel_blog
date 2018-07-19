@@ -72,3 +72,18 @@ Route::get('/backend/users/confirm/{user}', [
 	'as'	=> 'users.confirm'
 ]);
 Route::resource('/backend/users', 'Backend\UsersController');
+
+Route::get('/categories-data', [
+	'uses'	=> 'Backend\CategoriesController@data',
+	'as'	=> 'categories.data'
+]);
+
+Route::get('/users-data', [
+	'uses'	=> 'Backend\UsersController@data',
+	'as'	=> 'users.data'
+]);
+
+Route::get('/blog-data', [
+	'uses'	=> 'Backend\BlogController@data',
+	'as'	=> 'blog.data'
+]);

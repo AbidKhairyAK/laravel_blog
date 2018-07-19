@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Brian2694\Toastr\Facades\Toastr;
+use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
@@ -24,10 +26,26 @@ class UsersController extends BackendController
      */
     public function index()
     {
-        $users = User::with('posts')->orderBy('name')->paginate($this->limit);
-        $usersCount = User::count();
+        return view('backend.users.index');
+    }
 
-        return view('backend.users.index', compact('users','usersCount'));
+    public function data()
+    {
+        $users = User::with('posts');
+        
+        return Datatables::of($users)
+            ->addColumn('action', function($user) {
+                $delete_button  = ($user->id == config('cms.default_user_id') || $user->id == auth()->user()->id) ? '<button onclick="return false" class="btn btn-xs btn-danger disabled"><i class="fa fa-times"></i></button>' : '<a href="'.route('users.confirm', $user->id).'" onclick="return confirm('."'Are you sure?'".')" type="submit" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>';
+
+                return '<a href="'.route('users.edit', $user->id).'" class="btn btn-xs btn-default"><i class="fa fa-edit"></i></a>'. $delete_button;
+            })
+            ->addColumn('post_count', function($user) {
+                return $user->posts->count();
+            })
+            ->addColumn('role', function($user) {
+                return ($userRole = $user->roles->first()) ? $userRole->display_name : '-';
+            })
+            ->make(true);
     }
 
     /**
@@ -56,8 +74,9 @@ class UsersController extends BackendController
         $user = User::create($request->all());
         $user->attachRole($request->role);
 
+        Toastr::success('New user was created successfully!', 'Create User');
 
-        return redirect('backend/users')->with('message','New user was created successfully!');
+        return redirect('backend/users');
     }
 
     /**
@@ -101,7 +120,7 @@ class UsersController extends BackendController
         $user->update($request->all());
 
         $message = [
-            'type' => 'message',
+            'type' => 'success',
             'msg'  => 'User was updated successfully!'
         ];
 
@@ -112,11 +131,13 @@ class UsersController extends BackendController
         } 
         elseif ($request->role != 1) 
         {
-            $message['type'] = 'error-message';
+            $message['type'] = 'error';
             $message['msg']  = "You can't change the default user role's";
         }
 
-        return redirect('backend/users')->with($message['type'], $message['msg']);
+        Toastr::{$message['type']}($message['msg'],'Update User');
+
+        return redirect('backend/users');
     }
 
     /**
@@ -148,7 +169,9 @@ class UsersController extends BackendController
 
         $user->delete();
 
-        return redirect('backend/users')->with('message','User was deleted successfully!');
+        Toastr::success('User was deleted successfully!', 'Delete User');
+
+        return redirect('backend/users');
     }
 
     public function confirm(Requests\UserDestroyRequest $request, $id)

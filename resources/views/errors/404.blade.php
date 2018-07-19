@@ -1,5 +1,16 @@
 @extends('layouts.main')
 
+@section('style')
+	<style type="text/css">
+		#footer {
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			z-index: 10;
+		}
+	</style>
+@endsection
+
 @section('content')
     
   <div class="panel panel-default">

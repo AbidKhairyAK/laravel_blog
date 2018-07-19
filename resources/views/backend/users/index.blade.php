@@ -37,26 +37,10 @@
       <!-- box-body -->
       <div class="box-body">
         @include('backend.partials.message')
-
-      	@if (! $users->count())
-	      	<div class="alert alert-danger">
-	      		<strong>No record found.</strong>
-	      	</div>
-	      @else
-          @include('backend.users.table')
-	      @endif
+        @include('backend.users.table')
       </div>
       <!-- /.box-body -->
 
-      <div class="box-footer clearfix">
-      	<div class="pull-left">
-	      	{{ $users->appends( Request::query() )->render() }}
-      	</div>
-      	<div class="pull-right text-muted">
-      		<small>{{ $usersCount }} {{ str_plural('item', $usersCount) }}</small>
-      	</div>
-      </div>
-      <!-- /.box-footer-->
     </div>
     <!-- /.box -->
 
@@ -67,6 +51,22 @@
 
 @section('script')
 	<script type="text/javascript">
-		$('ul.pagination').addClass('pagination-sm no-margin')
+		$('ul.pagination').addClass('pagination-sm no-margin');
+
+    $(function() {
+        $('#users-table').DataTable({
+            processing: true,
+            serverSide: true,
+            order: [[1, 'asc']],
+            ajax: '{!! route('users.data') !!}',
+            columns: [
+                { data: 'action', name: 'action', orderable: false, searchable: false },
+                { data: 'name', name: 'name' },
+                { data: 'email', name: 'email' },
+                { data: 'post_count', name: 'post_count' },
+                { data: 'role', name: 'role' }
+            ]
+        });
+    });
 	</script>
 @endsection
